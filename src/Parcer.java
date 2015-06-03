@@ -15,6 +15,9 @@ public class Parcer {
             "семьсот ", "восемьсот ", "дев€тьсот ", "тыс€ча ", "тыс€чи ",
             "тыс€ч ", "миллион ", "миллионов ", "миллиона " };
     int tempInt, superTempInt;
+    String tempString = new String();//do not use
+    String superTempString = new String();
+    String temp1string = new String(" ");
     static public String readTextFromInputStream(InputStream in) throws IOException{
         StringBuilder text = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -108,6 +111,25 @@ public class Parcer {
             i *= 1000000;
         else return -1;
         return i;
+    }
+    int formTempInt(String s) {
+        int temp = 0, notemp = 0;
+        Pattern p = Pattern.compile("\\S.+?\\s");
+        Matcher matcher = p.matcher(s);
+        while (matcher.find()) {
+            tempString = matcher.group();
+            temp = shit(tempString, temp);
+            if (temp == -1)
+                return -1;
+            if (temp > 999) {
+                notemp += temp;
+                temp = 0;
+            }
+        }
+        notemp += temp;
+        //System.out.println(notemp);
+        return notemp;
+
     }
     public static void main(String[] args){
 
