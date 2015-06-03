@@ -15,6 +15,18 @@ public class Parcer {
             "семьсот ", "восемьсот ", "дев€тьсот ", "тыс€ча ", "тыс€чи ",
             "тыс€ч ", "миллион ", "миллионов ", "миллиона " };
     int tempInt, superTempInt;
+    static public String readTextFromInputStream(InputStream in) throws IOException{
+        StringBuilder text = new StringBuilder();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        String line = null;
+        String newline = System.getProperty("line.separator");
+        while ((line = reader.readLine())!=null){
+            text.append(line);
+            text.append(newline);
+        }
+        text.append(" ");
+        return text.toString();
+    }
     int shit(String s, int i) {
         if (s.equals("один ") || s.equals("одна "))
             i++;
