@@ -1,10 +1,14 @@
-
+package smoking.kills;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.*;
 
 public class Parcer {
+    FileInputStream stream;
+    Parcer() throws FileNotFoundException{
+        stream = new FileInputStream("Text.txt");
+    }
     String[] strings = { "один ", "одна ", "два ", "две ", "три ", "четыре ",
             "пять ", "шесть ", "семь ", "восемь ", "девять ", "десять ",
             "одиннадцать ", "двенадцать ", "тринадцать ", "четырнадцать ",
@@ -14,10 +18,13 @@ public class Parcer {
             "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ",
             "семьсот ", "восемьсот ", "девятьсот ", "тысяча ", "тысячи ",
             "тысяч ", "миллион ", "миллионов ", "миллиона " };
+    // String input = new String(
+    //  " сто миллионов злых варваров едят пятьдесят девять дураков  сто пять ");
     int tempInt, superTempInt;
     String tempString = new String();//do not use
     String superTempString = new String();
     String temp1string = new String(" ");
+
     static public String readTextFromInputStream(InputStream in) throws IOException{
         StringBuilder text = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -30,6 +37,7 @@ public class Parcer {
         text.append(" ");
         return text.toString();
     }
+
     int shit(String s, int i) {
         if (s.equals("один ") || s.equals("одна "))
             i++;
@@ -112,6 +120,7 @@ public class Parcer {
         else return -1;
         return i;
     }
+
     int formTempInt(String s) {
         int temp = 0, notemp = 0;
         Pattern p = Pattern.compile("\\S.+?\\s");
@@ -130,6 +139,10 @@ public class Parcer {
         //System.out.println(notemp);
         return notemp;
 
+    }
+
+    void temp() throws IOException{
+        temp1(readTextFromInputStream(stream).concat(" "));
     }
     void temp1(String s){
         String string = new String();
@@ -158,7 +171,42 @@ public class Parcer {
             substring = substring.replaceAll(string, Integer.toString(superTempInt)+" ");
         System.out.println(substring);
     }
-    public static void main(String[] args){
+    void mega(String s){
+        String substring = new String(s);
+        String string = new String(" ");
+        Pattern p = Pattern.compile("\\S.+?\\s");
+        Matcher matcher = p.matcher(s);
+        while (matcher.find()) {
+            superTempString = matcher.group();
+            //System.out.println(superTempString);
+            for (String c : strings){
+                //System.out.println((superTempString.equals(c)));
+                if (superTempString.equals(c)){
+                    string = string.concat(superTempString);
 
+                    break;
+                }
+                //System.out.println(c);
+            }
+        }
     }
+
+
+
+    public static void main(String[] args) {
+        try{
+            Parcer j = new Parcer();
+            j.temp();
+        }
+        catch (FileNotFoundException e){
+            System.out.println("FILE NOT FOUND");
+            return;
+        }
+        catch (IOException e){
+            System.out.println("IO");
+            return;
+        }
+        // System.out.println(j.input);
+    }
+
 }
