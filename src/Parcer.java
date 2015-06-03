@@ -131,6 +131,33 @@ public class Parcer {
         return notemp;
 
     }
+    void temp1(String s){
+        String string = new String();
+        String substring = new String(s);
+        s=s.concat(" ноль один ");
+        boolean fuck;
+        Pattern p = Pattern.compile("\\S.+?\\s");
+        Matcher matcher = p.matcher(s);
+        label1: while (matcher.find()) {
+            superTempString = matcher.group();
+            for (String c : strings){
+                if (superTempString.equals(c)){
+                    string = string.concat(superTempString);
+                    continue label1;
+                }
+            }
+            //System.out.println(string);
+            superTempInt = formTempInt(string);
+            if(superTempInt > 0){
+                substring = substring.replaceAll(string, Integer.toString(superTempInt)+" ");
+                string = "";
+            }
+        }
+        superTempInt = formTempInt(string);
+        if (superTempInt > 0)
+            substring = substring.replaceAll(string, Integer.toString(superTempInt)+" ");
+        System.out.println(substring);
+    }
     public static void main(String[] args){
 
     }
